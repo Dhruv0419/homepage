@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Ocean Theme with Bubbles</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #1a1a2e;
+            color: #fff;
+            position: relative;
+        }
+
+        /* Wave container */
+        .waves {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20vh;
+            overflow: hidden;
+            line-height: 0;
+            z-index: -1;
+        }
+
+        /* Individual wave styles */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            width: 200%;
+            height: 100%;
+            opacity: 0.5;
+            animation: wave-animation 8s infinite linear;
+        }
+
+        /* Different colors for waves */
+        .wave:nth-child(1) {
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 3;
+            animation-duration: 9s;
+        }
+        .wave:nth-child(2) {
+            background: rgba(255, 255, 255, 0.3);
+            z-index: 2;
+            animation-duration: 8s;
+        }
+        .wave:nth-child(3) {
+            background: rgba(255, 255, 255, 0.4);
+            z-index: 1;
+            animation-duration: 7s;
+        }
+
+        /* Wave Animation */
+        @keyframes wave-animation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Title Styling */
+        h1 {
+            font-size: 3em;
+            text-align: center;
+            position: relative;
+            color: #00ffe7;
+            animation: float-text 4s ease-in-out infinite;
+            transition: color 0.3s;
+        }
+
+        h1:hover {
+            color: #ff33cc;
+            text-shadow: 0 0 10px #ff33cc, 0 0 20px #ff33cc;
+        }
+
+        /* Subheading */
+        p {
+            font-size: 1.2em;
+            text-align: center;
+            position: relative;
+            opacity: 0.8;
+        }
+
+        /* Text Floating Animation */
+        @keyframes float-text {
+            0%, 100% { transform: translateY(-10px); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* Bubble styles */
+        .bubble {
+            position: absolute;
+            bottom: -50px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: bubble-rise 8s infinite ease-in;
+        }
+
+        /* Bubble Animation */
+        @keyframes bubble-rise {
+            0% { transform: translateY(0); opacity: 0.8; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Welcome to the Ocean of Animation</h1>
+        <p>Explore the soothing waves and glowing effects.</p>
+    </div>
+
+    <!-- Waves Background -->
+    <div class="waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <script>
+        // JavaScript for Adding Dynamic Glow Effect on Text
+        const title = document.querySelector("h1");
+        const colors = ["#00ffe7", "#ff33cc", "#33ccff", "#ffcc33"];
+        let colorIndex = 0;
+
+        // Change color every 2 seconds
+        setInterval(() => {
+            colorIndex = (colorIndex + 1) % colors.length;
+            title.style.color = colors[colorIndex];
+            title.style.textShadow = `0 0 10px ${colors[colorIndex]}, 0 0 20px ${colors[colorIndex]}`;
+        }, 2000);
+
+        // Function to create bubbles
+        function createBubble() {
+            const bubble = document.createElement("div");
+            bubble.classList.add("bubble");
+            
+            // Set random size and position for each bubble
+            const size = Math.random() * 50 + 10 + "px";
+            bubble.style.width = size;
+            bubble.style.height = size;
+            bubble.style.left = Math.random() * 100 + "vw";
+
+            // Append bubble to body
+            document.body.appendChild(bubble);
+
+            // Remove bubble after animation
+            bubble.addEventListener("animationend", () => {
+                bubble.remove();
+            });
+        }
+
+        // Generate bubbles at intervals
+        setInterval(createBubble, 500);
+    </script>
+</body>
+</html>
